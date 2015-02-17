@@ -20,6 +20,13 @@ post '/' do
       res = HTTParty.post('https://api.github.com/repos/jshawl/hw/issues/' + @pr.id.to_s + '/comments?access_token=' + ENV['access_token'], {
 	body: comment.to_json
       })
+    else
+      msg = {
+	commit_message: "Pull Request merged automatically."
+      }
+      res = HTTParty.put('https://api.github.com/repos/jshawl/hw/pulls/' + @pr.id.to_s + '/merge?access_token=' + ENV['access_token'], {
+	body: msg.to_json
+      })
     end
   end
 end
