@@ -9,11 +9,11 @@ class PullRequest
     @description = ''
     @commits = []
     if( id != 0 )
-      res = HTTParty.get("https://api.github.com/repos/jshawl/grades/pulls/#{id}?access_token=" + ENV['access_token'])
+      res = HTTParty.get("https://api.github.com/repos/jshawl/hw/pulls/#{id}?access_token=" + ENV['access_token'])
       @title = res['title']
       @author = res['user']['login']
       @description = res['body']
-      commits = HTTParty.get("https://api.github.com/repos/jshawl/grades/pulls/#{id}/commits?access_token=" + ENV['access_token'])      
+      commits = HTTParty.get("https://api.github.com/repos/jshawl/hw/pulls/#{id}/commits?access_token=" + ENV['access_token'])      
       commits.each do |commit|
 	url = commit['url'] + "?access_token=" + ENV['access_token']
 	files = HTTParty.get( url )['files'].map{ |f| f['filename'] }
