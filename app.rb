@@ -3,7 +3,8 @@ require 'sinatra/reloader'
 require_relative 'lib/pull_request'
 
 post '/' do
-  @pr = PullRequest.new( params["number"] )
+  id = JSON.parse( request.body.read )['number']
+  @pr = PullRequest.new( id )
   if @pr.errors?
     data = {
       state:'closed'
