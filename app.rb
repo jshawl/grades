@@ -7,7 +7,7 @@ post '/' do
   res = JSON.parse( request.body.read )
   if res['action'] == 'opened'
     @pr = PullRequest.new( res['number'] )
-    if @pr.errors?
+    if @pr.errors? != []
       data = {
 	state:'closed'
       }
