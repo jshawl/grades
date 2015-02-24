@@ -13,11 +13,11 @@ class PullRequest
       @title = res['title']
       @author = res['user']['login']
       @description = res['body']
-      commits = HTTParty.get("https://api.github.com/repos/#{ENV['org_repo']}/pulls/#{id}/commits?access_token=" + ENV['github_access_token'])
+      commits = HTTParty.get("https://api.github.com/repos/#{ENV['org_repo']}/pulls/#{id}/commits?access_token=#{ENV['github_access_token']}")
       commits.each do |commit|
-	url = commit['url'] + "?access_token=" + ENV['github_access_token']
-	files = HTTParty.get( url )['files'].map{ |f| f['filename'] }
-	@commits.push({ sha: commit['sha'], files: files })
+	      url = commit['url'] + "?access_token=" + ENV['github_access_token']
+	      files = HTTParty.get( url )['files'].map{ |f| f['filename'] }
+	      @commits.push({ sha: commit['sha'], files: files })
       end
     end
   end
