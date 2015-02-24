@@ -16,7 +16,7 @@ post '/' do
     comment = {
       body: message
     }
-    res = HTTParty.post('https://api.github.com/repos/jshawl/hw/issues/' + @pr.id.to_s + '/comments?access_token=' + ENV['access_token'], {
+    res = HTTParty.post('https://api.github.com/repos/#{ENV['org_repo']}/issues/' + @pr.id.to_s + '/comments?access_token=' + ENV['github_access_token'], {
       body: comment.to_json
     })
   end
