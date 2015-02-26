@@ -13,7 +13,10 @@ post '/' do
       message = "Pull request passes automatic validation."
     end
 
+    comment = { body: message }.to_json
     url = "https://api.github.com/repos/#{ENV['org_repo']}/issues/#{@pr.id.to_s}/comments?access_token=#{ENV['github_access_token']}"
-    res = HTTParty.post(url, {body: message.to_json})
+
+    res = HTTParty.post(url, {body: comment})
+    raise res.body if res.code != 200
   end
 end
