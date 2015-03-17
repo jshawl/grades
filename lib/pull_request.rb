@@ -9,11 +9,11 @@ class PullRequest
     @description = ''
     @commits = []
     if( id != 0 )
-      res = HTTParty.get("https://api.github.com/repos/jshawl/hw/pulls/#{id}?access_token=" + ENV['access_token'])
+      res = HTTParty.get("https://api.github.com/repos/ga-students/addbass-hw/pulls/#{id}?access_token=" + ENV['access_token'])
       @title = res['title']
       @author = res['user']['login']
       @description = res['body']
-      commits = HTTParty.get("https://api.github.com/repos/jshawl/hw/pulls/#{id}/commits?access_token=" + ENV['access_token'])      
+      commits = HTTParty.get("https://api.github.com/repos/ga-students/addbass-hw/pulls/#{id}/commits?access_token=" + ENV['access_token'])      
       commits.each do |commit|
 	url = commit['url'] + "?access_token=" + ENV['access_token']
 	files = HTTParty.get( url )['files'].map{ |f| f['filename'] }
@@ -35,10 +35,10 @@ class PullRequest
     true if @title.match(/w[0-9]{2}d[0-9]{2}/)
   end
   def comfort?
-    true if @description.match(/comfort: [0-5]/)
+    true if @description.match(/comfort: ?[0-5]/i)
   end
   def completeness?
-    true if @description.match(/completeness: ?[0-5]/)
+    true if @description.match(/completeness: ?[0-5]/i)
   end
   def errors?
     @errors = []
