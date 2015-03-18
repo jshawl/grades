@@ -1,10 +1,11 @@
 require 'sinatra'
 require 'sinatra/reloader'
 require 'json'
+require 'pry'
 require_relative 'lib/pull_request'
 
 post '/' do
-  res = JSON.parse( request.body.read )
+  res = request.env["rack.request.form_hash"]
   if res['action'] == 'opened'
     @pr = PullRequest.new( res['number'] )
     if @pr.errors? != []
