@@ -12,13 +12,13 @@ post '/' do
       data = {
 	state:'closed'
       }
-      res = HTTParty.patch('https://api.github.com/repos/jshawl/hw/pulls/' + @pr.id.to_s + '?access_token=' + ENV['access_token'], {
+      res = HTTParty.patch('https://api.github.com/repos/ga-students/addbass-hw/pulls/' + @pr.id.to_s + '?access_token=' + ENV['access_token'], {
 	body: data.to_json
       })
       comment = {
 	body: @pr.errors?.join("\n\n")
       }
-      res = HTTParty.post('https://api.github.com/repos/jshawl/hw/issues/' + @pr.id.to_s + '/comments?access_token=' + ENV['access_token'], {
+      res = HTTParty.post('https://api.github.com/repos/ga-students/addbass-hw/issues/' + @pr.id.to_s + '/comments?access_token=' + ENV['access_token'], {
 	body: comment.to_json
       })
     end
